@@ -1,8 +1,6 @@
 # ChatGPT
 扫码进群交流
-
 ![](https://github.com/EthanForAi/ChatGPT/blob/main/img/wechat.jpg)
-
 ## 功能介绍
 
 由于ChatGPT只提供了单纯的api，提供完整服务需要额外的开发工作。OpenIM把实时推送、消息记录、会话隔离、上下文管理、多端同步等强大的工程能力赋予了ChatGPT，协助开发者打造真正的聊天机器人
