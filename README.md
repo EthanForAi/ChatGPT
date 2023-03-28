@@ -28,6 +28,8 @@ callback:
   callbackUrl : "http://127.0.0.1:8080/callback"
   callbackBeforeSendSingleMsg:
     enable: true 
+  callbackBeforeSendGroupMsg:
+    enable: true
 ```
 
 
