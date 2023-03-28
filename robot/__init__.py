@@ -1,2 +1,2 @@
-from .rebot import *
+from .robot import *
 from .chatgpt import *

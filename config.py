@@ -1,5 +1,5 @@
 api_key = ""
-rebot_user_id = ""
+robot_user_id = ""
 admin_id = ""
 secret = ""
 im_api_url = ""

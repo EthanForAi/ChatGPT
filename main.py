@@ -9,6 +9,7 @@ from server import start_server
 import config
 import consumer
 import cache
+import log
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser() 
@@ -16,11 +17,11 @@ def parse_arguments(argv):
     parser.add_argument('--api_key', type=str, default=config.api_key, help="chatgpt's apiKey")
     parser.add_argument('--secret', type=str, default=config.secret, help='openIM secret')
     parser.add_argument('--im_api_url', type=str, default=config.im_api_url, help='openIM api url')
-    parser.add_argument('--rebot_user_id',type=str, default=config.rebot_user_id, help='rebot userID in openIM')
+    parser.add_argument('--robot_user_id',type=str, default=config.robot_user_id, help='robot userID in openIM')
     parser.add_argument("--redis_addr", type=str, default=config.host, help="redis addr")
     parser.add_argument("--redis_pwd", type=str, default=config.host, help="redis pwd")
-    parser.add_argument('--host', type=str, default =config.host, help='rebot server listen host')
-    parser.add_argument('--port', type=int, default =config.port, help='rebot server listen port')
+    parser.add_argument('--host', type=str, default =config.host, help='robot server listen host')
+    parser.add_argument('--port', type=int, default =config.port, help='robot server listen port')
     args = parser.parse_args(argv)
     if args.admin_id:
         config.admin_id = args.admin_id
@@ -30,8 +31,8 @@ def parse_arguments(argv):
         config.secret = args.secret
     if args.im_api_url:
         config.im_api_url = args.im_api_url
-    if args.rebot_user_id:
-        config.rebot_user_id = args.rebot_user_id
+    if args.robot_user_id:
+        config.robot_user_id = args.robot_user_id
     if args.redis_addr:    
         config.redis_addr = args.redis_addr
     if args.redis_pwd:
@@ -40,8 +41,10 @@ def parse_arguments(argv):
         config.host = args.host
     if args.port:    
         config.port = args.port
-    if args.api_key:    
-        openai.api_key = args.api_key
+    if args.api_key:
+        config.api_key = args.api_key    
+    openai.api_key = config.api_key
+    # openai.
     return args    
   
 async def main():
@@ -51,7 +54,7 @@ async def main():
     asyncio.create_task(consumer.start_consumer())
 
 if __name__ == "__main__":
-    print("start server")
+    log.info("","start robot callback server")
     loop = asyncio.get_event_loop()
     loop.create_task(main())
     loop.run_forever()
