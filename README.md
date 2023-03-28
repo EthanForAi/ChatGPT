@@ -12,7 +12,10 @@ cd  Open-IM-Server; chmod +x install_im_server.sh; ./install_im_server.sh;
 cd script;./docker_check_service.sh
 ```
 
+```
+```
 
+![](https://github.com/EthanForAi/ChatGPT/blob/main/docs/docker_success.png)
 
 
 
