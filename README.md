@@ -9,19 +9,19 @@
 
 1. 使用该机器人需要先部署openIM服务器 [open-im-server部署文档](https://doc.rentsoft.cn/#/v2/validation/all)
 
-   1.1项目clone
+   1.1 项目clone
 
    ```
    git clone https://github.com/OpenIMSDK/Open-IM-Server.git --recursive;Copy to clipboardErrorCopied
    ```
 
-   1.2初始化安装
+   1.2 初始化安装
 
    ```
    cd  Open-IM-Server; chmod +x install_im_server.sh; ./install_im_server.sh;Copy to clipboardErrorCopied
    ```
 
-   1.3检查服务
+   1.3 检查服务
 
    ```
    cd script;./docker_check_service.sh
