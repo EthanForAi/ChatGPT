@@ -1,4 +1,7 @@
 # ChatGPT
+扫码进群交流
+
+![](https://github.com/EthanForAi/ChatGPT/blob/main/img/wechat.jpg)
 
 ## 功能介绍
 
