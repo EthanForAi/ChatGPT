@@ -2,7 +2,7 @@ import openai
 
 from robot import robot
 
-engine = "gpt-3.5-turbo"
+engine = "gpt-3.5-turbo-0301"
 davinci_engine = "text-davinci-003"
 
 class Chat_gpt(robot):
