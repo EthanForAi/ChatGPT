@@ -14,6 +14,7 @@ class Chat_gpt(robot):
     async def ask_chat_gpt(self, question):
         prompt = question
         completions = await openai.Completion.acreate(
+            model=engine,
             engine=engine,
             prompt=prompt,
             max_tokens=1024,
@@ -29,6 +30,7 @@ class Chat_gpt(robot):
         args.append(question)
         prompt = '\n'.join(args)[-1000:]
         completions = await openai.Completion.acreate(
+            model=engine,
             engine=engine,
             prompt=prompt,
             max_tokens=2500,
