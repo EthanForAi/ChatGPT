@@ -52,4 +52,4 @@ class Chat_gpt(robot):
             request_timeout=self.request_timeout,
         )
         print(completions)
-        return completions.choices[0].text.strip()
+        return completions['choices'][0]['message']['content'].strip()
