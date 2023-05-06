@@ -23,7 +23,7 @@ class Chat_gpt(robot):
             self.prompt_a = json.loads(s)
 
         with open(path+"prompt_b.json", "r", encoding="utf-8") as f2:
-            s = f.read()
+            s = f2.read()
             self.prompt_b = json.loads(s)
 
         log.info("", "init prompt success", self.prompt_a, self.prompt_b)
