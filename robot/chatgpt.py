@@ -26,8 +26,8 @@ class Chat_gpt(robot):
             s = f2.read()
             self.prompt_b = json.loads(s)
 
-        log.info("", "init prompt success", self.prompt_a)
-        log.info("", "init prompt success", self.prompt_b)
+        log.info("", self.prompt_b)
+        log.info("", self.prompt_b)
 
     @utils.async_retry(num_retries=3, delay=0.1)
     async def ask_chat_gpt(self, question):
