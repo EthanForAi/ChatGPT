@@ -109,7 +109,7 @@ class Consumer:
         try:    
            await self.group(operation_id, send_id, group_id, text, session_type, sender_nickname)
         except Exception as e:
-             traceback.print_exc()
+            traceback.print_exc()
             log.error(operation_id, "chatgpt in group error {}".format(e))
             try:
                 await self.open_im_api.send_at_msg(group_id=group_id, text=str(e), at_user_id=send_id, session_type=session_type, sender_nickname=sender_nickname)
