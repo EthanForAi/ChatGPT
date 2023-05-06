@@ -14,7 +14,7 @@ class Chat_gpt(robot):
         super().__init__()
         self.request_timeout = 60
         self.prompt = dict()
-        self.__init_prompt("./robot/prompt.json")
+        self.__init_prompt("./prompt.json")
 
     def __init_prompt(self, path):
         with open(path, "r", encoding="utf-8") as f:
