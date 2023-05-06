@@ -51,4 +51,5 @@ class Chat_gpt(robot):
             temperature=0.5,
             request_timeout=self.request_timeout,
         )
+        print(completions)
         return completions.choices[0].text.strip()
