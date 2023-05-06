@@ -36,7 +36,7 @@ class Chat_gpt(robot):
             model=engine,
             messages=messages
         )
-        return completions.choices[0].text
+        return completions['choices'][0]['message']['content'].strip()
 
     @utils.async_retry(num_retries=3, delay=0.1)
     async def ask_chat_gpt_context(self, question, args):
