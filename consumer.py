@@ -38,16 +38,16 @@ class Consumer:
             msg = await server.group_chat_queue.get()
             asyncio.create_task(self.consume_group_chat(msg))
 
-    async def handle_msg(self, key, content):
+    async def handle_msg(self, key, content, user_id):
         historys = await cache.redis_client.client.lrange(key, 0, 4)
         # 新会话
         if len(historys) == 0:
-            gpt_resp = await self.chat_gpt.ask_chat_gpt(content)
+            gpt_resp = await self.chat_gpt.ask_chat_gpt(user_id, content)
         else:
             s = list()
             for i in historys:
                 s.append(i.decode("utf-8"))
-            gpt_resp = await self.chat_gpt.ask_chat_gpt_context(content, s)
+            gpt_resp = await self.chat_gpt.ask_chat_gpt_context(user_id, content, s)
         if len(gpt_resp) > 0:
             if gpt_resp[0] == "?" or gpt_resp[0] == "？":
                 gpt_resp = gpt_resp[1:]
@@ -58,13 +58,13 @@ class Consumer:
     
     # single
     async def single(self, operation_id, user_id, content):
-        gpt_resp = await self.handle_msg(cache.redis_client.get_key(user_id), content)
+        gpt_resp = await self.handle_msg(cache.redis_client.get_key(user_id), content, user_id)
         log.info(operation_id, "gpt resp success")
         await self.open_im_api.send_msg(recv_id=user_id, text=gpt_resp)
 
     # group
     async def group(self, operation_id, user_id, group_id, content, session_type, sender_nickname):
-        gpt_resp = await self.handle_msg(cache.redis_client.get_group_key(user_id, group_id), content)
+        gpt_resp = await self.handle_msg(cache.redis_client.get_group_key(user_id, group_id), content, user_id)
         log.info(operation_id, "gpt resp success")
         await self.open_im_api.send_at_msg(group_id=group_id, text=gpt_resp, at_user_id=user_id, session_type=session_type, sender_nickname=sender_nickname)
 

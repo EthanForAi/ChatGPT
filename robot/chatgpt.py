@@ -29,9 +29,17 @@ class Chat_gpt(robot):
         log.info("", self.prompt_b)
         log.info("", self.prompt_b)
 
+    def choose_prompt(self, user_id):
+        if user_id == "3891546298":
+            return self.prompt_b
+        elif user_id == "3555451820":
+            return self.prompt_a
+        else:
+            return self.prompt_b
+
     @utils.async_retry(num_retries=3, delay=0.1)
-    async def ask_chat_gpt(self, question):
-        messages = [self.prompt_b, {"role":"user", "content": question}]
+    async def ask_chat_gpt(self, user_id, question):
+        messages = [self.choose_prompt(user_id), {"role":"user", "content": question}]
         completions = await openai.ChatCompletion.acreate(
             model=engine,
             messages=messages,
@@ -40,7 +48,7 @@ class Chat_gpt(robot):
         return completions['choices'][0]['message']['content'].strip()
 
     @utils.async_retry(num_retries=3, delay=0.1)
-    async def ask_chat_gpt_context(self, question, args):
+    async def ask_chat_gpt_context(self, user_id, question, args):
         args.reverse()
         args.append(question)
         prompt = '\n'.join(args)[-1000:]
@@ -52,7 +60,7 @@ class Chat_gpt(robot):
         #     temperature=0.5,
         #     request_timeout=self.request_timeout,
         # )
-        messages = [self.prompt_b, {"role":"user", "content": prompt}]
+        messages = [self.choose_prompt(user_id), {"role":"user", "content": prompt}]
         completions = await openai.ChatCompletion.acreate(
             model=engine,
             messages=messages,
