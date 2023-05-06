@@ -6,6 +6,7 @@ from openim import Open_im_api
 import config
 import robot
 import json
+import traceback
 
 import cache
 
@@ -77,6 +78,7 @@ class Consumer:
            await self.single(operation_id, send_id, content)
         except Exception as e:
             log.error(operation_id, "single chatgpt failed {}".format(e))
+            traceback.print_exc()
             try:
                 await self.open_im_api.send_msg(recv_id=send_id, text=str(e))
             except Exception as e2:
@@ -107,6 +109,7 @@ class Consumer:
         try:    
            await self.group(operation_id, send_id, group_id, text, session_type, sender_nickname)
         except Exception as e:
+             traceback.print_exc()
             log.error(operation_id, "chatgpt in group error {}".format(e))
             try:
                 await self.open_im_api.send_at_msg(group_id=group_id, text=str(e), at_user_id=send_id, session_type=session_type, sender_nickname=sender_nickname)
