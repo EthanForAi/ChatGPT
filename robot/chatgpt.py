@@ -34,7 +34,8 @@ class Chat_gpt(robot):
         messages = [self.prompt_b, {"role":"user", "content": question}]
         completions = await openai.ChatCompletion.acreate(
             model=engine,
-            messages=messages
+            messages=messages,
+            request_timeout=self.request_timeout
         )
         return completions['choices'][0]['message']['content'].strip()
 
@@ -43,13 +44,18 @@ class Chat_gpt(robot):
         args.reverse()
         args.append(question)
         prompt = '\n'.join(args)[-1000:]
+        # completions = await openai.ChatCompletion.acreate(
+        #     model=engine,
+        #     prompt=prompt,
+        #     max_tokens=2500,
+        #     n=1,
+        #     temperature=0.5,
+        #     request_timeout=self.request_timeout,
+        # )
+        messages = [self.prompt_b, {"role":"user", "content": prompt}]
         completions = await openai.ChatCompletion.acreate(
             model=engine,
-            prompt=prompt,
-            max_tokens=2500,
-            n=1,
-            temperature=0.5,
+            messages=messages,
             request_timeout=self.request_timeout,
         )
-        print(completions, "===========")
         return completions['choices'][0]['message']['content'].strip()
