@@ -44,8 +44,6 @@ def parse_arguments(argv):
     if args.api_key:
         config.api_key = args.api_key    
     openai.api_key = config.api_key
-    openai.api_base = "https://api.openai.com/v2"
-    # openai.
     return args    
   
 async def main():

@@ -13,20 +13,27 @@ class Chat_gpt(robot):
     def __init__(self) -> None:
         super().__init__()
         self.request_timeout = 60
-        self.prompt = dict()
-        self.__init_prompt("./prompt.json")
+        self.prompt_a = str()
+        self.prompt_b = str()
+        self.__init_prompt("./")
 
     def __init_prompt(self, path):
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path+"prompt_a.json", "r", encoding="utf-8") as f:
             s = f.read()
-            self.prompt = json.loads(s)
-        log.info("", "init prompt success", self.prompt)
+            self.prompt_a = json.loads(s)
+
+        with open(path+"prompt_b.json", "r", encoding="utf-8") as f2:
+            s = f.read()
+            self.prompt_b = json.loads(s)
+
+        log.info("", "init prompt success", self.prompt_a, self.prompt_b)
 
     @utils.async_retry(num_retries=3, delay=0.1)
     async def ask_chat_gpt(self, question):
+        messages = [self.prompt_b, {"role":"user", "content": question}]
         completions = await openai.ChatCompletion.acreate(
             model=engine,
-            messages=self.prompt
+            messages=messages
         )
         return completions.choices[0].text
 
